@@ -1,14 +1,14 @@
-// import model student
-const Student = require("../models/Student")
+// import model media
+const media = require("../models/media")
 
-class StudentController {
+class mediaController {
     async index(req, res) {
-        // TODO 4: Tampilkan data students
-        const students = await Student.all();
+        // TODO 4: Tampilkan data medias
+        const medias = await media.all();
 
         const data = {
-            message: "Menampilkan data student",
-            data: students
+            message: "Menampilkan data media",
+            data: medias
         };
 
         res.status(200).json(data);
@@ -30,10 +30,10 @@ class StudentController {
             return res.status(422).json(data);
         }
 
-        const students = await Student.create(req.body);
+        const medias = await media.create(req.body);
         const data = {
-            message: "Menambahkan data student",
-            data: students,
+            message: "Menambahkan data media",
+            data: medias,
         };
 
         res.status(201).json(data);
@@ -42,20 +42,20 @@ class StudentController {
 
     async update(req, res) {
         /**
-         * check id students
+         * check id medias
          * jika ada, lakukan update
          * jika tidak, kirim data tidak ada
          */
         const { id } = req.params;
 
-        const students = await Student.find(id);
+        const medias = await media.find(id);
 
-        if (students) {
+        if (medias) {
             // update data
-            const studentUpdated = await Student.update(id, req.body);
+            const mediaUpdated = await media.update(id, req.body);
             const data = {
-                message: "Mengupdate data student",
-                data: studentUpdated,
+                message: "Mengupdate data media",
+                data: mediaUpdated,
             };
 
             res.status(200).json(data);
@@ -82,13 +82,13 @@ class StudentController {
          * jika tidak, kirim data tidak ada
          */
 
-        const student = await Student.find(id);
+        const medai = await media.find(id);
 
-        if (student) {
+        if (media) {
             // hapus data
-            await Student.delete(id);
+            await medai.delete(id);
             const data = {
-                message: "Menghapus data student",
+                message: "Menghapus data media",
             };
 
             res.status(200).json(data);
@@ -111,12 +111,12 @@ class StudentController {
          */
         const { id } = req.params;
 
-        const student = await Student.find(id);
+        const medai = await media.find(id);
 
-        if (student) {
+        if (medai) {
             const data = {
-                message: "Menampilkan detail data student",
-                data: student,
+                message: "Menampilkan detail data media",
+                data: medai,
             };
 
             res.status(200).json(data);
@@ -132,8 +132,8 @@ class StudentController {
     }
 }
 
-// make an object Student Controller
-const object = new StudentController();
+// make an object media Controller
+const object = new mediaController();
 
 // export object
 module.exports = object;

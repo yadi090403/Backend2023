@@ -1,12 +1,12 @@
 // import database
 const db = require("../config/database");
 
-// make Student model
-class Student {
+// make media model
+class media{
     static all() {
         return new Promise((resolve, reject) => {
             // lakukan query ke db untuk ambil data
-            const sql = "SELECT * FROM students";
+            const sql = "SELECT * FROM medias";
             db.query(sql, (sql, results) => {
                 resolve(results);
             });
@@ -16,14 +16,14 @@ class Student {
     /**
   * TODO 1: Buat fungsi untuk insert data.
   * Method menerima parameter data yang akan diinsert.
-  * Method mengembalikan data student yang baru diinsert.
+  * Method mengembalikan data media yang baru diinsert.
   */
 
     // promise 1
-    static async create(Student) {
+    static async create(media) {
         const id = await new Promise((resolve, reject) => {
-            const sql = "INSERT INTO students SET ?";
-            db.query(sql, Student, (err, results) => {
+            const sql = "INSERT INTO medias SET ?";
+            db.query(sql, media, (err, results) => {
                 resolve(results.insertId);
             });
         });
@@ -31,7 +31,7 @@ class Student {
 
         // promise 2
         return new Promise((resolve, reject) => {
-            const sql = `SELECT * FROM students WHERE id = ?`;
+            const sql = `SELECT * FROM medias WHERE id = ?`;
             db.query(sql, id, (err, results) => {
                 resolve(results);
             });
@@ -42,7 +42,7 @@ class Student {
     static find(id) {
         // lakukan promise, select by id
         return new Promise((resolve, reject) => {
-            const sql = `SELECT * FROM students WHERE id = ?`;
+            const sql = `SELECT * FROM medias WHERE id = ?`;
             db.query(sql, id, (err, results) => {
                 resolve(results[0]);
             });
@@ -53,22 +53,22 @@ class Student {
         // update data
         await new Promise((resolve, reject) => {
             // query untuk update data
-            const sql = "UPDATE students SET ? WHERE id = ?";
+            const sql = "UPDATE medias SET ? WHERE id = ?";
             db.query(sql, [data, id], (err, results) => {
                 resolve(results);
             });
         });
 
         // select data by id
-        const student = await this.find(id);
-        return student;
+        const media = await this.find(id);
+        return media;
     }
 
     static async delete(id) {
         // query delete
         return new Promise((resolve, reject) => {
             // query sql
-            const sql = "DELETE FROM students WHERE id = ?";
+            const sql = "DELETE FROM medias WHERE id = ?";
             db.query(sql, id, (err, results) => {
                 resolve(results);
             });
@@ -79,4 +79,4 @@ class Student {
 
 
 // export model
-module.exports = Student;
+module.exports = media;
